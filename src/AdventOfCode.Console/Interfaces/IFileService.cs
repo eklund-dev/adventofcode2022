@@ -1,7 +1,9 @@
-﻿namespace AdventOfCode.Console.Interfaces
+﻿using AdventOfCode.ConsoleApp.Models;
+
+namespace AdventOfCode.ConsoleApp.Interfaces
 {
-    public interface IFileService<T>
+    public interface IFileService<T> where T : AdventOfCodeEntity
     {
-        public IEnumerable<string> GetFileData();
+        public IEnumerable<T> GetFileData();
     }
 }

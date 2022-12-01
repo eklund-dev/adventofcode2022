@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Console.Interfaces.DI
+﻿namespace AdventOfCode.ConsoleApp.Interfaces.DI
 {
     public interface ITransientOperation : IOperation
     {
