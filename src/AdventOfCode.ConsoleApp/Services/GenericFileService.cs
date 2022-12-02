@@ -9,18 +9,17 @@ namespace AdventOfCode.ConsoleApp.Services
     {
         public IEnumerable<T> GetFileData(string fileName, CsvConfiguration? configuration)
         {
-            List<T> dataEntities = new();
-
+            IEnumerable<T> dataEntities;
             var basePath = Directory.GetParent(Directory.GetCurrentDirectory())!.Parent?.Parent?.FullName;
 
-            using (var reader = new StreamReader($"{basePath}/AdventOfCodeFiles/{fileName}.csv"))
+            using (var reader = new StreamReader($"{basePath}/AdventOfCodeFiles/{fileName}"))
             using (var csv = new CsvReader(reader, configuration))
             {
-                var records = csv.GetRecords<T>();
-                dataEntities.AddRange(records);
+                dataEntities = csv.GetRecords<T>().ToList();
             }
 
             return dataEntities;
         }
+
     }
 }

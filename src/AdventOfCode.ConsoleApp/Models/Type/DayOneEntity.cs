@@ -6,6 +6,6 @@ namespace AdventOfCode.ConsoleApp.Models.Type
     public class DayOneEntity : AdventOfCodeEntity
     {
         [Index(0)]
-        public int Values { get; set; }
+        public int? Value { get; set; }
     }
 }

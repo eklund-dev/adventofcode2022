@@ -1,19 +1,17 @@
 ﻿using AdventOfCode.ConsoleApp.Engine;
 using AdventOfCode.ConsoleApp.Interfaces;
+using AdventOfCode.ConsoleApp.Models.Type;
 using AdventOfCode.ConsoleApp.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using IHost? host = CreateHostBuilder(args).Build();
 
-var engine = host.Services.GetRequiredService<IAdventOfCodeEngine>();
+var engine = host.Services.GetRequiredService<IAdventOfCodeEngine<DayTwoEntity>>();
 
-Console.WriteLine();
-Console.WriteLine("1. DayOne");
+engine.Run("DayTwo");
 
-engine.Run(Console.ReadLine() ?? string.Empty);
-
-host.Run();
+Environment.Exit(0);
 
 static IHostBuilder CreateHostBuilder(string[] args)
 {
@@ -21,5 +19,5 @@ static IHostBuilder CreateHostBuilder(string[] args)
         .ConfigureServices((_, services) => services
             .AddScoped(typeof(IFileService<>), typeof(GenericFileService<>))
             .AddScoped(typeof(IOutputService<>), typeof(ConsoleOutputService<>))
-            .AddScoped<IAdventOfCodeEngine, AdventOfCodeEngine>());
+            .AddScoped(typeof(IAdventOfCodeEngine<>), typeof(AdventOfCodeEngine<>)));
 }

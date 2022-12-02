@@ -5,20 +5,15 @@ namespace AdventOfCode.ConsoleApp.Factory
 {
     public class AdventOfCodeFactory
     {
-        public static AdventOfCodeCalculator? Create(string name)
+        public static AdventOfCodeCalculator Create(string name)
         {
             try
             {
                 var type = Assembly.GetAssembly(typeof(AdventOfCodeCalculator))?.GetType($"AdventOfCode.ConsoleApp.Calculators.{name}Calculator");
 
-                if (type is null)
-                {
-                    throw new ArgumentException($"Resolved Type for class '{name}' is null");
-                }
-
-                return Activator.CreateInstance(type) as AdventOfCodeCalculator;
-
-
+                return type is null
+                    ? throw new ArgumentException($"Resolved Type for class '{name}' is null")
+                    : (AdventOfCodeCalculator)Activator.CreateInstance(type)!;
             }
             catch (ArgumentException)
             {
