@@ -8,10 +8,7 @@ using IHost? host = CreateHostBuilder(args).Build();
 
 var engine = host.Services.GetRequiredService<IAdventOfCodeEngine>();
 
-Console.WriteLine();
-Console.WriteLine("1. DayOne");
-
-engine.Run(Console.ReadLine() ?? string.Empty);
+engine.Run("DayThree");
 
 host.Run();
 

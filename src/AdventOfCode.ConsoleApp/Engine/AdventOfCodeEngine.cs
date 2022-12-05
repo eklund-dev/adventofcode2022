@@ -8,11 +8,11 @@ namespace AdventOfCode.ConsoleApp.Engine
 {
     public class AdventOfCodeEngine : IAdventOfCodeEngine
     {
-        private readonly IFileService<DayOneEntity> _service;
-        private readonly IOutputService<DayOneEntity> _outputService;
-        private readonly string _fileName = "AdventOfCodeDayOne.csv";
+        private readonly IFileService<DayThreeEntity> _service;
+        private readonly IOutputService<DayThreeEntity> _outputService;
+        private readonly string _fileName = "AdventOfCodeDayThree";
 
-        public AdventOfCodeEngine(IFileService<DayOneEntity> service, IOutputService<DayOneEntity> outputService)
+        public AdventOfCodeEngine(IFileService<DayThreeEntity> service, IOutputService<DayThreeEntity> outputService)
         {
             _service = service;
             _outputService = outputService;
@@ -30,7 +30,7 @@ namespace AdventOfCode.ConsoleApp.Engine
 
             var data = _service.GetFileData(_fileName, configuration);
             var response = calculator.RunCalculations(data);
-            _outputService.PrintOutput(response);
+            _outputService.PrintOutput((DayThreeEntity)response);
         }
     }
 }
