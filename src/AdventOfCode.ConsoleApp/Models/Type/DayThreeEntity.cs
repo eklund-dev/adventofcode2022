@@ -4,5 +4,6 @@ namespace AdventOfCode.ConsoleApp.Models.Type
 {
     public class DayThreeEntity : AdventOfCodeEntity
     {
+        public string Data { get; set; }
     }
 }
