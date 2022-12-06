@@ -4,8 +4,7 @@ namespace AdventOfCode.ConsoleApp.Calculators
 {
     public abstract class AdventOfCodeCalculator
     {
-        public abstract AdventOfCodeEntity RunCalculation(IEnumerable<AdventOfCodeEntity> dataInput);
-        public abstract AdventOfCodeEntity RunCalculations(IEnumerable<AdventOfCodeEntity> dataInput);
+        public abstract AdventOfCodeEntity RunCalculation(IEnumerable<AdventOfCodeEntity> dataInput, bool partOne);
         public static int CharToDigit(char character)
         {
             if (char.IsUpper(character))

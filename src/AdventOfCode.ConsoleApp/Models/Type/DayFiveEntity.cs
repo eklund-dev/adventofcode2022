@@ -3,9 +3,11 @@ using CsvHelper.Configuration.Attributes;
 
 namespace AdventOfCode.ConsoleApp.Models.Type
 {
-    public class DayThreeEntity : AdventOfCodeEntity
+    public class DayFiveEntity : AdventOfCodeEntity
     {
         [Index(0)]
-        public string? Data { get; set; }
+        public string? Instruction { get; set; }
     }
 }
+
+

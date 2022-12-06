@@ -21,7 +21,7 @@ namespace AdventOfCode.ConsoleApp.Calculators
         private const int _paperScore = 2;
         private const int _scissorScore = 3;
 
-        public override DayTwoEntity RunCalculation(IEnumerable<AdventOfCodeEntity> dataInput)
+        public override DayTwoEntity RunCalculation(IEnumerable<AdventOfCodeEntity> dataInput, bool partOne)
         {
             var data = dataInput.Cast<DayTwoEntity>().ToList();
 
@@ -29,7 +29,7 @@ namespace AdventOfCode.ConsoleApp.Calculators
 
             for (int i = 0; i < data.Count; i++)
             {
-                roundList.Add(i + 1, data[i].Round.Split(' '));
+                roundList.Add(i + 1, data[i].Round!.Split(' '));
             }
 
             int roundLevel = 1;

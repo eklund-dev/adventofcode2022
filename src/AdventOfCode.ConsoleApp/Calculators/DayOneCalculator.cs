@@ -5,7 +5,7 @@ namespace AdventOfCode.ConsoleApp.Calculators
 {
     public class DayOneCalculator : AdventOfCodeCalculator
     {
-        public override DayOneEntity RunCalculation(IEnumerable<AdventOfCodeEntity> dataInput)
+        public override DayOneEntity RunCalculation(IEnumerable<AdventOfCodeEntity> dataInput, bool partOne)
         {
             Console.WriteLine($"*** Running Calculations in --{nameof(DayOneCalculator)}-- *** ");
 

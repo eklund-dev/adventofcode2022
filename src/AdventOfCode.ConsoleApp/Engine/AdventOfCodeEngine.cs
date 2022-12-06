@@ -25,7 +25,7 @@ namespace AdventOfCode.ConsoleApp.Engine
 
             var data = _service.GetFileData(taskConfig.FileName, taskConfig.Configuration);
 
-            var response = (T)calculator.RunCalculation(data);
+            var response = (T)calculator.RunCalculation(data, true);
 
             _outputService.PrintOutput(response);
         }

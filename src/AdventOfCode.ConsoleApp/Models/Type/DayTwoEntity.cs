@@ -1,10 +1,12 @@
 ﻿using AdventOfCode.ConsoleApp.Models.Base;
+using CsvHelper.Configuration.Attributes;
 
 namespace AdventOfCode.ConsoleApp.Models.Type
 {
     public class DayTwoEntity : AdventOfCodeEntity
     {
-        public string Round { get; set; }
+        [Index(0)]
+        public string? Round { get; set; }
 
     }
 }

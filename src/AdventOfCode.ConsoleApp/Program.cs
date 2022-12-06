@@ -7,9 +7,9 @@ using Microsoft.Extensions.Hosting;
 
 using IHost? host = CreateHostBuilder(args).Build();
 
-var engine = host.Services.GetRequiredService<IAdventOfCodeEngine<DayTwoEntity>>();
+var engine = host.Services.GetRequiredService<IAdventOfCodeEngine<DaySevenEntity>>();
 
-engine.Run("DayTwo");
+engine.Run("DaySeven");
 
 Environment.Exit(0);
 
