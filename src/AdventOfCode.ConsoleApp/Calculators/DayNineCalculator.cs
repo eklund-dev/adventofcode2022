@@ -5,7 +5,10 @@ namespace AdventOfCode.ConsoleApp.Calculators
 {
     public class DayNineCalculator : AdventOfCodeCalculator
     {
-        private List<(int, int)> _tailsVisited = new();
+        private const int _rows = 10;
+        private const int _columns = 10;
+        private List<int> _tailsVisited = new();
+        private readonly int[,] _grid = new int[_rows, _columns];
 
         public override AdventOfCodeEntity RunCalculation(IEnumerable<AdventOfCodeEntity> dataInput, bool partOne)
         {
@@ -21,73 +24,82 @@ namespace AdventOfCode.ConsoleApp.Calculators
 
             int rows = 100;
             int columns = 100;
-            int[,] grid = new int[rows, columns];
             int number = 1;
+
             for (int i = 0; i != rows; i++)
             {
                 for (int j = 0; j != columns; j++)
                 {
-                    grid[i, j] = number;
+                    _grid[i, j] = number;
                     number++;
                 }
             }
 
-            Console.WriteLine(grid[3, 4]);
-
-            // Skapa spelplanen
-            var twoDimList = new List<List<int>>();
-
-            var startPosition = (100, 100);
+            (int row, int column) startPosition = (5, 5);
 
             // Börjar med att addera startPosition
-            _tailsVisited.Add(startPosition);
+            _tailsVisited.Add(_grid[startPosition.row, startPosition.column]);
 
-            (int positionX, int positionY) currentPosition = startPosition;
+            // sätt startposition för både head och tail - båda startar på samma plats
+            (int positionRow, int positionColumn) headerPosition = (startPosition.row, startPosition.column);
+            (int positionRow, int positionColumn) tailPosition = (startPosition.row, startPosition.column);
 
-            foreach (var move in input)
+            foreach (var (direction, steps) in input)
             {
-                switch (move.direction.ToUpper())
+                for (int i = 0; i < steps; i++)
                 {
-                    case "U":
-                        break;
-                    case "R":
-                        break;
-                    case "D":
-                        break;
-                    case "L":
-                        break;
-                    default:
-                        break;
+                    switch (direction.ToUpper())
+                    {
+                        case "U":
+                            headerPosition = MoveUp(headerPosition);
+                            break;
+                        case "R":
+                            break;
+                        case "D":
+                            break;
+                        case "L":
+                            break;
+                        default:
+                            break;
+                    }
                 }
+
             }
-
-
-
-            // Utgå från att spelplanen är oändligt stor - inga kanter verkar existera
 
             return null;
         }
 
-        private void MoveUp(string direction, int steps)
+        private void CheckIfTailHasVisitThisPosition(int row, int column)
+        {
+            if (!_tailsVisited.Any(x => x == _grid[row, column]))
+            {
+                _tailsVisited.Add(_grid[row, column]);
+            }
+            else
+            {
+                Console.WriteLine("Damn you already been up in this place dawg.");
+            }
+        }
+
+        private static (int positionRow, int positionColumn) MoveUp((int positionRow, int positionColumn) currentPosition)
+        {
+            return (currentPosition.positionRow - 1, currentPosition.positionColumn);
+        }
+
+        private void MoveRight(int steps, (int positionRow, int positionColumn) currentPosition)
         {
 
         }
 
-        private void MoveRight(string direction, int steps)
+        private void MoveDown(int steps, (int positionRow, int positionColumn) currentPosition)
         {
 
         }
 
-        private void MoveDown()
+        private void MoveLeft(int steps, (int positionRow, int positionColumn) currentPosition)
         {
 
         }
-
-        private void MoveLeft(string direction, int steps)
-        {
-
-        }
-
 
     }
 }
