@@ -23,7 +23,7 @@ namespace AdventOfCode.ConsoleApp.Calculators
 
             int visibleTrees = 0;
             int currentTreeRow = 1;
-            List<int> viewCounter = new();
+            List<decimal> scenicViews = new();
             foreach (var treeLine in forrest.Skip(1).Take(forrest.Count - 2))
             {
                 for (int i = 1; i < treeLine.Count - 1; i++)
@@ -31,28 +31,116 @@ namespace AdventOfCode.ConsoleApp.Calculators
                     var rowData = CheckVisibilityRow(treeLine[i], i, treeLine);
                     var columnData = CheckVisibilityColum(treeLine[i], i, currentTreeRow, forrest);
 
+                    List<int> viewCounter = ViewCounter(treeLine[i], i, currentTreeRow, treeLine, forrest);
+
                     if (rowData.visibleRow || columnData.visibleColumn)
                         visibleTrees++;
 
-                    viewCounter.Add(rowData.viewCounter);
-                    viewCounter.Add(columnData.viewCounter);
+                    scenicViews.Add(CalculateScenicView(viewCounter));
+                    viewCounter.Clear();
                 }
 
                 currentTreeRow++;
             }
 
+            Console.WriteLine();
+
             int scenicView = 1;
 
-            foreach (var item in viewCounter)
-            {
-                scenicView *= item;
-            }
-
-            Console.WriteLine(scenicView);
+            Console.WriteLine(scenicViews.Max());
 
             Console.WriteLine($"Number of visible Trees found #{visibleTrees + 392}");
 
             return null;
+        }
+
+        static decimal CalculateScenicView(List<int> viewCounter)
+        {
+            decimal calculatedScenicView = 1m;
+
+            foreach (var item in viewCounter)
+            {
+                calculatedScenicView *= item;
+            }
+
+            return calculatedScenicView;
+        }
+
+        static List<int> ViewCounter(int currentTreeHeight, int rowIndex, int currentTreeRow, List<int> treeRow, List<List<int>> forrest)
+        {
+            List<int> viewCounter = new();
+            List<int> treeColumns = new();
+
+            int currentRow = 0;
+
+            for (int i = 0; i < forrest.Count; i++)
+            {
+                treeColumns.Add(forrest[i][rowIndex]);
+                currentRow++;
+            }
+
+            // Up
+            int upCounter = 0;
+            for (int i = currentTreeRow - 1; i >= 0; i--)
+            {
+                // Kör endast allt ovan därav --
+                if (treeColumns[i] >= currentTreeHeight)
+                {
+                    upCounter++;
+                    break;
+                }
+
+                upCounter++;
+            }
+
+            viewCounter.Add(upCounter);
+
+            //Left
+            int leftCounter = 0;
+            for (int i = rowIndex - 1; i >= 0; i--)
+            {
+                if (treeRow[i] >= currentTreeHeight)
+                {
+                    leftCounter++;
+                    break;
+                }
+
+                leftCounter++;
+            }
+
+            viewCounter.Add(leftCounter);
+
+            // Down
+            int downCounter = 0;
+            for (int i = currentTreeRow + 1; i < treeColumns.Count; i++)
+            {
+                if (treeColumns[i] >= currentTreeHeight)
+                {
+                    downCounter++;
+                    break;
+                }
+
+                downCounter++;
+            }
+
+            viewCounter.Add(downCounter);
+
+            // Right
+            int rightCounter = 0;
+            for (int i = rowIndex + 1; i < treeRow.Count; i++)
+            {
+                if (treeRow[i] >= currentTreeHeight)
+                {
+                    rightCounter++;
+                    break;
+                }
+
+                rightCounter++;
+            }
+
+            viewCounter.Add(rightCounter);
+
+            return viewCounter;
         }
 
         static (bool visibleRow, int viewCounter) CheckVisibilityRow(int currentTreeHeight, int rowIndex, List<int> treeRow)
@@ -109,7 +197,6 @@ namespace AdventOfCode.ConsoleApp.Calculators
 
                 currentRow++;
             }
-
 
             bool visibleFromTop = true;
             bool visibleFromBottom = true;

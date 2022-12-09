@@ -127,7 +127,6 @@ namespace AdventOfCode.ConsoleApp.Calculators
 
             rootFolder.TotalValue = rootFolder.DirectoryValue + rootFolder.AggregatedSubFolderValue;
 
-
             var numbers = directories
                 .Where(x => (x.AggregatedSubFolderValue + x.DirectoryValue) <= 100000)
                 .Select(x => x.AggregatedSubFolderValue)
@@ -180,19 +179,6 @@ namespace AdventOfCode.ConsoleApp.Calculators
                 DirectoryValue = FolderFiles.Select(x => x.Value).Sum();
             }
         }
-
-        //public void SetAggregatedValue()
-        //{
-        //    if (SubFolders?.Count > 0)
-        //    {
-        //        foreach (var sub in SubFolders)
-        //        {
-        //            sub.AggregatedSubFolderValue += sub.DirectoryValue;
-        //        }
-
-        //    }
-        //}
-
     }
 
     public class DirectoryFile
