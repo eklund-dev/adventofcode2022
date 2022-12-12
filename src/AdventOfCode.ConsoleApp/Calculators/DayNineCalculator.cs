@@ -52,6 +52,8 @@ namespace AdventOfCode.ConsoleApp.Calculators
                     {
                         case "U":
                             headerPosition = MoveUp(headerPosition);
+                            // kolla om tail måste flytta sig.
+                            // Om måste flytta - gör det - kolla sen om tail redan varit där eller inte.
                             break;
                         case "R":
                             break;
